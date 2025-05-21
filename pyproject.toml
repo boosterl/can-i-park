@@ -1,0 +1,33 @@
+# pyproject.toml
+
+[build-system]
+requires      = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "can-i-park"
+version = "0.0.1"
+description = "A CLI and exporter to fetch the status of parkings in Ghent"
+readme = "README.md"
+authors = [{ name = "Bram Oosterlynck", email = "bram.oosterlynck@gmail.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+  "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+]
+
+[project.urls]
+Homepage = "https://github.com/boosterl/can-i-park"
+
+[project.scripts]
+can-i-park = "can_i_park.__main__:main"
+cic = "can_i_park.__main__:main"
