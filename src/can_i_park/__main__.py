@@ -11,7 +11,7 @@ from click import command, option
 @option("-v", "--verbose", count=True)
 @option("--lez/--no-lez", envvar="LEZ", default=True)
 def main(exporter, interval, port, name, verbose, lez):
-    display_parking_data(name, lez)
+    display_parking_data(name, lez, verbose)
 
 
 if __name__ == "__main__":
