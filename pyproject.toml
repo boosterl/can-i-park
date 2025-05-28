@@ -23,6 +23,12 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
+  "certifi>=2025.4.26",
+  "charset-normalizer>=3.4.2",
+  "click>=8.2.1",
+  "idna>=3.10",
+  "requests>=2.32.3",
+  "urllib3>=2.4.0",
 ]
 
 [project.urls]
@@ -30,4 +36,4 @@ Homepage = "https://github.com/boosterl/can-i-park"
 
 [project.scripts]
 can-i-park = "can_i_park.__main__:main"
-cic = "can_i_park.__main__:main"
+cip = "can_i_park.__main__:main"
