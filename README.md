@@ -1,5 +1,9 @@
 # Can I park?
 
+Driving to Ghent and want to know if there is place in one of the car parks
+managed by the city, without leaving the warmth of your terminal before you
+leave? Look no further than this utility!
+
 ## How to use
 
 ### CLI
