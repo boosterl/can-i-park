@@ -1,5 +1,5 @@
 from can_i_park.cli import display_parking_data
-from click import command, option
+from click import command, option, version_option
 # from prometheus_client import start_http_server
 
 
@@ -10,6 +10,7 @@ from click import command, option
 @option("-n", "--name", envvar="NAME", multiple=True)
 @option("-v", "--verbose", count=True)
 @option("--lez/--no-lez", envvar="LEZ", default=True)
+@version_option()
 def main(exporter, interval, port, name, verbose, lez):
     display_parking_data(name, lez, verbose)
 
