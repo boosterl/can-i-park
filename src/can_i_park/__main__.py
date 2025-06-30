@@ -1,7 +1,5 @@
 from can_i_park.cli import display_parking_data
 from click import command, option, version_option
-# from prometheus_client import start_http_server
-
 
 @command()
 @option("-e", "--exporter", envvar="EXPORTER", is_flag=True)
