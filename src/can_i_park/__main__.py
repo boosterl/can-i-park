@@ -1,6 +1,7 @@
 from can_i_park.cli import display_parking_data
 from click import command, option, version_option
 
+
 @command()
 @option("-e", "--exporter", envvar="EXPORTER", is_flag=True)
 @option("-i", "--interval", envvar="EXPORTER_INTERVAL", type=int)
