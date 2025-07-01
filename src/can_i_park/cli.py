@@ -1,9 +1,9 @@
 import click
 
-from can_i_park.utils import fetch_parking_data
+from can_i_park.utils import fetch_parking_data, get_charging_status
 
 
-def display_parking_data(names, lez, verbose):
+async def display_parking_data(names, lez, verbose, chargers):
     parkings = fetch_parking_data()
     for parking in parkings:
         if names and not any(
@@ -22,6 +22,22 @@ def display_parking_data(names, lez, verbose):
         else:
             click.echo(f"   - Parking is full 🚫")
         display_parking_details(parking, verbose)
+        if not chargers:
+            continue
+        available_connectors, total_connectors = await get_charging_status(
+            parking.get("id")
+        )
+        if total_connectors:
+            status_icon = "✅" if available_connectors else "🚫"
+            click.echo(
+                f"   - {available_connectors}/{total_connectors} connectors are available for charging {status_icon}"
+            )
+            if verbose > 0:
+                click.echo(
+                    get_occupation_chart(
+                        100 - int(available_connectors / total_connectors * 100)
+                    )
+                )
 
 
 def display_parking_details(parking, verbose):
@@ -33,8 +49,8 @@ def display_parking_details(parking, verbose):
         f"     Parking in LEZ: {'yes' if 'in lez' in parking.get('categorie').lower() else 'no'}"
     )
     print(f"     Occupation: {parking.get('occupation')}%")
-    print(print_occupation_chart(parking.get("occupation")))
+    print(get_occupation_chart(parking.get("occupation")))
 
 
-def print_occupation_chart(occupation):
+def get_occupation_chart(occupation):
     return f"     [{'#' * occupation}{' ' * (100 - occupation)}]"

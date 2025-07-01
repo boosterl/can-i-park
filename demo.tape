@@ -11,7 +11,7 @@ Sleep 3s
 Type "clear"
 Enter
 
-Type 'cip --name sint-pieters -v'
+Type 'cip --name sint-pieters -cv'
 Sleep 500ms
 Enter
-Sleep 5s
+Sleep 10s
