@@ -4,8 +4,7 @@ from can_i_park.utils import fetch_parking_data, get_charging_status
 
 
 async def display_parking_data(names, lez, verbose, chargers):
-    parkings = fetch_parking_data()
-    for parking in parkings:
+    for parking in fetch_parking_data():
         if names and not any(
             name.lower() in parking.get("name").lower() for name in names
         ):

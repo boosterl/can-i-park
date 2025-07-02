@@ -1,7 +1,6 @@
 import requests
 
 from aiohttp import ClientSession
-from click import echo
 from shellrecharge import Api, LocationEmptyError, LocationValidationError
 
 API_URL = "https://data.stad.gent/api/explore/v2.1/catalog/datasets/bezetting-parkeergarages-real-time/records?limit=20"
