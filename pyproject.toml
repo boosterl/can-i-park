@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "can-i-park"
-version = "0.1.1"
+version = "0.2.0"
 description = "A CLI and exporter to fetch the status of parkings in Ghent"
 readme = "README.md"
 authors = [{ name = "Bram Oosterlynck", email = "bram.oosterlynck@gmail.com" }]
