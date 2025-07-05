@@ -1,10 +1,15 @@
-from aiohttp import ClientSession
-from can_i_park.utils import fetch_parking_data, get_charging_status
-from prometheus_client import Gauge
-
+import logging
 import time
 
-# Create Prometheus metrics
+from aiohttp import ClientSession
+from aiohttp.client_exceptions import ClientError
+from asyncio import CancelledError
+from can_i_park.utils import fetch_parking_data, get_charging_status
+from prometheus_client import Gauge
+from requests.exceptions import ConnectionError
+from shellrecharge import LocationEmptyError, LocationValidationError
+
+
 total_capacity = Gauge(
     "cip_total_capacity",
     "Total capacity of the parking",
@@ -39,9 +44,11 @@ available_charging_stalls = Gauge(
     ["name", "latitude", "longtitude"],
 )
 
+logger = logging.getLogger(__name__)
+
 
 def set_metrics(
-    parking, available_charging_stalls_amount, total_charging_stalls_amount
+    parking, available_charging_stalls_amount=0, total_charging_stalls_amount=0
 ):
     location = parking.get("location")
     total_capacity.labels(
@@ -84,9 +91,28 @@ def set_metrics(
 async def run_metrics_loop(interval):
     async with ClientSession() as session:
         while True:
-            for parking in fetch_parking_data():
-                available_charging_stalls, total_charging_stalls = (
-                    await get_charging_status(parking.get("id"))
+            try:
+                parkings = fetch_parking_data()
+            except ConnectionError:
+                logger.error(
+                    "Error connecting to Ghent data API, check your connection"
                 )
-                set_metrics(parking, available_charging_stalls, total_charging_stalls)
-            time.sleep(interval)
+                time.sleep(interval)
+                continue
+            for parking in parkings:
+                try:
+                    available_charging_stalls, total_charging_stalls = (
+                        await get_charging_status(parking.get("id"))
+                    )
+                    set_metrics(
+                        parking, available_charging_stalls, total_charging_stalls
+                    )
+                except (
+                    CancelledError,
+                    ClientError,
+                    LocationEmptyError,
+                    LocationValidationError,
+                    TimeoutError,
+                ):
+                    logger.error("There was an issue getting charging status")
+                    set_metrics(parking)
