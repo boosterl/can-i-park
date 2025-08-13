@@ -6,49 +6,39 @@ from shellrecharge import Api, LocationEmptyError, LocationValidationError
 API_URL = "https://data.stad.gent/api/explore/v2.1/catalog/datasets/bezetting-parkeergarages-real-time/records?limit=20"
 parking_station_ids = {
     "https://stad.gent/nl/mobiliteit-openbare-werken/parkeren/parkings-gent/parking-savaanstraat": [
-        "BEALLEGO005188"
+        "BELOC003065"
     ],
     "https://stad.gent/nl/mobiliteit-openbare-werken/parkeren/parkings-gent/parking-vrijdagmarkt": [
-        "BEALLEGO005141",
-        "BEALLEGO005138",
+        "BELOC003061",
     ],
     "https://stad.gent/nl/mobiliteit-openbare-werken/parkeren/parkings-gent/parking-reep": [
-        "BEALLEGO005186",
-        "BEALLEGO005146",
-        "BEALLEGO005187",
-        "BEALLEGO005149",
+        "BELOC003063",
     ],
     "https://stad.gent/nl/mobiliteit-openbare-werken/parkeren/parkings-gent/parking-sint-pietersplein": [
-        "BEALLEGO005180",
-        "BEALLEGO005158",
+        "BELOC003067",
     ],
     "https://stad.gent/nl/mobiliteit-openbare-werken/parkeren/parkings-gent/parking-ramen": [
-        "BEALLEGO005139",
-        "BEALLEGO005135",
+        "BELOC003062",
     ],
     "https://stad.gent/nl/mobiliteit-openbare-werken/parkeren/parkings-gent/parking-tolhuis": [
-        "BEALLEGO005183",
-        "BEALLEGO005142",
+        "BELOC003066",
     ],
     "https://stad.gent/nl/mobiliteit-openbare-werken/parkeren/parkings-gent/parking-sint-michiels": [
-        "BEALLEGO005151",
-        "BEALLEGO005148",
+        "BELOC003064",
     ],
     "https://stad.gent/nl/mobiliteit-openbare-werken/parkeren/parkings-gent/parking-ledeberg": [
-        "BEALLEGO005136"
+        "BELOC003068"
     ],
     "https://stad.gent/nl/mobiliteit-openbare-werken/parkeren/parkings-gent/parking-het-getouw": [
-        "BEALLEGO005137"
+        "BELOC003069"
     ],
     "https://www.belgiantrain.be/nl/station-information/car-or-bike-at-station/b-parking/my-b-parking/gent-dampoort": [
-        "BEALLEGO004674",
-        "BEALLEGO004678",
+        "BELOC002376",
     ],
     "https://be.parkindigo.com/nl/car-park/parking-dok-noord": ["10954"],
     "https://stad.gent/nl/loop/mobiliteit-loop#Parkeerterreinen_Stad_Gent": [],
     "https://www.belgiantrain.be/nl/station-information/car-or-bike-at-station/b-parking/my-b-parking/gentstpieters": [
-        "BEALLEGO004982",
-        "BEALLEGO004305",
+        "BELOC002367",
     ],
 }
 
