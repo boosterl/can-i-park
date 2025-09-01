@@ -43,6 +43,10 @@ parking_station_ids = {
 }
 
 
+class RateLimitException(Exception):
+    pass
+
+
 async def get_charging_status(parking_id):
     stations = parking_station_ids.get(parking_id, list())
     async with ClientSession() as session:
@@ -51,6 +55,8 @@ async def get_charging_status(parking_id):
         available_connectors = 0
         for station_id in stations:
             location = await api.location_by_id(station_id)
+            if not location:
+                raise RateLimitException()
             for evse in location.evses:
                 total_connectors += 1
                 if evse.status.lower() == "available":

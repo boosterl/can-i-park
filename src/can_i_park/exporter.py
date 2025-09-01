@@ -4,8 +4,9 @@ import time
 from aiohttp import ClientSession
 from aiohttp.client_exceptions import ClientError
 from asyncio import CancelledError
-from can_i_park.utils import fetch_parking_data, get_charging_status
+from can_i_park.utils import fetch_parking_data, get_charging_status, RateLimitException
 from prometheus_client import Gauge
+from random import randrange
 from requests.exceptions import ConnectionError
 from shellrecharge import LocationEmptyError, LocationValidationError
 
@@ -44,6 +45,10 @@ available_charging_stalls = Gauge(
     ["name", "latitude", "longtitude"],
 )
 
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s %(levelname)s %(message)s'
+)
 logger = logging.getLogger(__name__)
 
 
@@ -116,3 +121,8 @@ async def run_metrics_loop(interval):
                 ):
                     logger.error("There was an issue getting charging status")
                     set_metrics(parking)
+                except (RateLimitException):
+                    cooldown_period = randrange(30,60)
+                    logger.error(f"Rate limit of charging API was probably hit, cooling down for {cooldown_period}s")
+                    set_metrics(parking)
+                    time.sleep(cooldown_period)
