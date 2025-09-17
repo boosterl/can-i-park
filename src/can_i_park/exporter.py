@@ -14,35 +14,35 @@ from shellrecharge import LocationEmptyError, LocationValidationError
 total_capacity = Gauge(
     "cip_total_capacity",
     "Total capacity of the parking",
-    ["name", "latitude", "longtitude"],
+    ["name", "latitude", "longitude"],
 )
 available_capacity = Gauge(
     "cip_available_capacity",
     "Available capacity of the parking",
-    ["name", "latitude", "longtitude"],
+    ["name", "latitude", "longitude"],
 )
 occupation = Gauge(
     "cip_occupation",
     "Occupation percentage of the parking",
-    ["name", "latitude", "longtitude"],
+    ["name", "latitude", "longitude"],
 )
 is_open = Gauge(
-    "cip_is_open", "Whether the parking is open", ["name", "latitude", "longtitude"]
+    "cip_is_open", "Whether the parking is open", ["name", "latitude", "longitude"]
 )
 in_lez = Gauge(
     "cip_in_lez",
     "Whether the parking is located inside the LEZ",
-    ["name", "latitude", "longtitude"],
+    ["name", "latitude", "longitude"],
 )
 total_charging_stalls = Gauge(
     "cip_total_charging_stalls",
     "Total amount of charging stalls in parking",
-    ["name", "latitude", "longtitude"],
+    ["name", "latitude", "longitude"],
 )
 available_charging_stalls = Gauge(
     "cip_available_charging_stalls",
     "Available amount of charging stalls in parking",
-    ["name", "latitude", "longtitude"],
+    ["name", "latitude", "longitude"],
 )
 
 logging.basicConfig(
@@ -59,37 +59,37 @@ def set_metrics(
     total_capacity.labels(
         name=parking.get("name"),
         latitude=location.get("lat"),
-        longtitude=location.get("lon"),
+        longitude=location.get("lon"),
     ).set(parking.get("totalcapacity"))
     available_capacity.labels(
         name=parking.get("name"),
         latitude=location.get("lat"),
-        longtitude=location.get("lon"),
+        longitude=location.get("lon"),
     ).set(parking.get("availablecapacity"))
     occupation.labels(
         name=parking.get("name"),
         latitude=location.get("lat"),
-        longtitude=location.get("lon"),
+        longitude=location.get("lon"),
     ).set(parking.get("occupation"))
     is_open.labels(
         name=parking.get("name"),
         latitude=location.get("lat"),
-        longtitude=location.get("lon"),
+        longitude=location.get("lon"),
     ).set(parking.get("isopennow"))
     in_lez.labels(
         name=parking.get("name"),
         latitude=location.get("lat"),
-        longtitude=location.get("lon"),
+        longitude=location.get("lon"),
     ).set("in lez" in parking.get("categorie").lower())
     total_charging_stalls.labels(
         name=parking.get("name"),
         latitude=location.get("lat"),
-        longtitude=location.get("lon"),
+        longitude=location.get("lon"),
     ).set(total_charging_stalls_amount)
     available_charging_stalls.labels(
         name=parking.get("name"),
         latitude=location.get("lat"),
-        longtitude=location.get("lon"),
+        longitude=location.get("lon"),
     ).set(available_charging_stalls_amount)
 
 
