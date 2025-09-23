@@ -126,3 +126,4 @@ async def run_metrics_loop(interval):
                     logger.error(f"Rate limit of charging API was probably hit, cooling down for {cooldown_period}s")
                     set_metrics(parking)
                     time.sleep(cooldown_period)
+            time.sleep(interval)
