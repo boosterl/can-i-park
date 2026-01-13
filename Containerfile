@@ -1,4 +1,4 @@
-ARG IMAGETAG=python:3.13.5-alpine3.22
+ARG IMAGETAG=python:3.14.2-alpine3.23
 FROM ${IMAGETAG}
 
 WORKDIR /tmp/can-i-park
