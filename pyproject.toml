@@ -24,15 +24,15 @@ classifiers = [
   "Programming Language :: Python :: 3.14",
 ]
 dependencies = [
-  "click>=8.3.1",
-  "prometheus_client>=0.24.1",
-  "requests>=2.32.5",
+  "click>=8.4.1",
+  "prometheus_client>=0.25.0",
+  "requests>=2.34.2",
   "shellrecharge>=0.1.26",
 ]
 
 [project.optional-dependencies]
 test = [
-  "pytest>=8.4.2"
+  "pytest>=9.1.1"
 ]
 
 [project.urls]
