@@ -1,3 +1,5 @@
+import click
+
 from asyncio import new_event_loop, run
 from can_i_park.cli import display_parking_data
 from can_i_park.exporter import run_metrics_loop
@@ -9,19 +11,22 @@ from prometheus_client import start_http_server
 @option("-c", "--chargers", envvar="CHARGERS", is_flag=True)
 @option("-e", "--exporter", envvar="EXPORTER", is_flag=True)
 @option("-i", "--interval", envvar="EXPORTER_INTERVAL", type=int)
+@option("-k", "--api-key", envvar="API_KEY", default=None)
 @option("-p", "--port", envvar="EXPORTER_PORT", type=int)
 @option("-n", "--name", envvar="NAME", multiple=True)
 @option("-v", "--verbose", count=True)
 @option("--lez/--no-lez", envvar="LEZ", default=True)
 @version_option()
-def main(chargers, exporter, interval, port, name, verbose, lez):
+def main(chargers, exporter, interval, api_key, port, name, verbose, lez):
+    if chargers and not api_key:
+        raise click.UsageError("--api-key / API_KEY is required when using --chargers")
     if exporter:
         start_http_server(port if port else 9030)
         new_event_loop().run_until_complete(
-            run_metrics_loop(interval if interval else 150)
+            run_metrics_loop(interval if interval else 150, api_key)
         )
     else:
-        run(display_parking_data(name, lez, verbose, chargers))
+        run(display_parking_data(name, lez, verbose, chargers, api_key))
 
 
 if __name__ == "__main__":

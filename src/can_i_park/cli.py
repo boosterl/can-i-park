@@ -2,19 +2,20 @@ import click
 
 from aiohttp.client_exceptions import ClientError
 from asyncio import CancelledError
+from can_i_park.api import StationNotFoundError
 from can_i_park.utils import fetch_parking_data, get_charging_status
 from requests.exceptions import ConnectionError
-from shellrecharge import LocationEmptyError, LocationValidationError
 
 
-async def display_charging_stall_data(parking, verbose):
+async def display_charging_stall_data(parking, api_key, verbose):
     try:
-        available_stalls, total_stalls = await get_charging_status(parking.get("id"))
+        available_stalls, total_stalls = await get_charging_status(
+            parking.get("id"), api_key
+        )
     except (
         CancelledError,
         ClientError,
-        LocationEmptyError,
-        LocationValidationError,
+        StationNotFoundError,
         TimeoutError,
     ):
         click.echo(
@@ -33,7 +34,7 @@ async def display_charging_stall_data(parking, verbose):
             )
 
 
-async def display_parking_data(names, lez, verbose, chargers):
+async def display_parking_data(names, lez, verbose, chargers, api_key):
     try:
         parkings = fetch_parking_data()
     except ConnectionError:
@@ -50,7 +51,7 @@ async def display_parking_data(names, lez, verbose, chargers):
         display_parking_details(parking, verbose)
         if not chargers:
             continue
-        await display_charging_stall_data(parking, verbose)
+        await display_charging_stall_data(parking, api_key, verbose)
 
 
 def display_basic_parking_data(parking, names, lez):
