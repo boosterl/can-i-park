@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "can-i-park"
-version = "0.4.0"
+version = "0.4.1"
 description = "A CLI and exporter to fetch the status of parkings in Ghent"
 readme = "README.md"
 authors = [{ name = "Bram Oosterlynck", email = "bram.oosterlynck@gmail.com" }]
@@ -24,9 +24,9 @@ classifiers = [
   "Programming Language :: Python :: 3.14",
 ]
 dependencies = [
-  "aiohttp>=3.0.0",
-  "click>=8.4.1",
-  "prometheus_client>=0.25.0",
+  "aiohttp>=3.14.3",
+  "click>=8.4.2",
+  "prometheus_client>=0.26.0",
   "requests>=2.34.2",
 ]
 
